@@ -3,9 +3,13 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import RRWebRecorder from './Scripts/RRWebRecorder'
+import useDeviceFingerprint from './Scripts/ClientJSController'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  const { fingerprint, deviceInfo } = useDeviceFingerprint();
+
   useEffect(() => {
     const data = fetch('http://localhost:10000/', {
       method: 'POST',
@@ -21,12 +25,8 @@ function App() {
     <>
     <RRWebRecorder />
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    {fingerprint && <p>Fingerprint: {fingerprint}</p>}
+    {deviceInfo && <p>{JSON.stringify(deviceInfo)}</p>}
       </div>
       <h1>Vite + React</h1>
       <div className="card">
