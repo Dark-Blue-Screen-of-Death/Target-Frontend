@@ -21,13 +21,14 @@ function RRWebRecorder() {
                 token: token
             })
         }).then((response) => {
+            console.log(response);
             if (!response.ok) {
+                alert("403 Forbidden")
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             return response.json(); // Parse the response as JSON
         })
             .then((data) => {
-                console.log('Token:', data.token); 
                 localStorage.setItem("token", data.token)
                 setRRWebDataArray([])
                 setRRwebSentData([])
