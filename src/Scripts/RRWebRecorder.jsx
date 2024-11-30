@@ -11,7 +11,7 @@ function RRWebRecorder(props) {
         var token = localStorage.getItem("token")
     }
     const postReqRRweb = async () => {
-        await fetch("http://localhost:10000/rrweb", {
+        await fetch(import.meta.env.VITE_API_URL+"/rrweb", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
