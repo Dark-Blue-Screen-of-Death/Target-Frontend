@@ -11,6 +11,8 @@ function NoCaptcha() {
         <div>
 
             <RRWebRecorder fingerprint={fingerprint} ip={ip}/>
+            <h5>Device Fingerprint: {JSON.stringify(fingerprint)}</h5>
+            <h5>IP Address: {JSON.stringify(ip.ip)}</h5>
         </div>
     )
 }
