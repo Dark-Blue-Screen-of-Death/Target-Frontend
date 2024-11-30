@@ -10,24 +10,32 @@ function RRWebRecorder() {
     } else {
         var token = localStorage.getItem("token")
     }
-    const postReqRRweb = () => {
-        fetch("http://localhost:10000/rrweb", {
+    const postReqRRweb = async () => {
+        await fetch("http://localhost:10000/rrweb", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: {
-                data: JSON.stringify(RRwebSentData),
+            body: JSON.stringify({
+                data: RRwebSentData,
                 token: token
+            })
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        }).then(data => {
-            // console.log(data)
-            if (data.status === 200) {
-                localStorage.setItem("token", data);
+            return response.json(); // Parse the response as JSON
+        })
+            .then((data) => {
+                console.log('Token:', data.token); 
+                localStorage.setItem("token", data.token)
                 setRRWebDataArray([])
                 setRRwebSentData([])
-            }
-        })
+
+            })
+            .catch((error) => {
+                console.error('Error fetching token:', error);
+            });
     }
 
 
