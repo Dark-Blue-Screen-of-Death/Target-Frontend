@@ -5,16 +5,25 @@ function RRWebRecorder() {
     const [RRWebDataArray, setRRWebDataArray] = useState([]);
     const [RRwebSentData, setRRwebSentData] = useState();
 
+    if (localStorage.getItem("token") === null) {
+        var token = null
+    } else {
+        var token = localStorage.getItem("token")
+    }
     const postReqRRweb = () => {
         fetch("http://localhost:10000/rrweb", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(RRwebSentData)
+            body: {
+                data: JSON.stringify(RRwebSentData),
+                token: token
+            }
         }).then(data => {
             // console.log(data)
             if (data.status === 200) {
+                localStorage.setItem("token", data);
                 setRRWebDataArray([])
                 setRRwebSentData([])
             }

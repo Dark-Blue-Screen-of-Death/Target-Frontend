@@ -21,8 +21,7 @@ function RRWebServerController(url, data) {
             },
             body: JSON.stringify(RRWebDataArray)
         }).then(data => {
-            setresponse(data)
-            console.log(data)
+          
         })
     }
     return { response }
