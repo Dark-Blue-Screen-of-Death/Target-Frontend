@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { record } from "rrweb";
 
-function RRWebRecorder() {
+function RRWebRecorder(props) {
     const [RRWebDataArray, setRRWebDataArray] = useState([]);
     const [RRwebSentData, setRRwebSentData] = useState();
 
@@ -18,7 +18,8 @@ function RRWebRecorder() {
             },
             body: JSON.stringify({
                 data: RRwebSentData,
-                token: token
+                token: token,
+                fingerprint:props.fingerprint
             })
         }).then((response) => {
             console.log(response);
