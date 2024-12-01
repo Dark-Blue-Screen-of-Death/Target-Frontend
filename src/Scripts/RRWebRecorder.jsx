@@ -5,11 +5,6 @@ function RRWebRecorder(props) {
     const [RRWebDataArray, setRRWebDataArray] = useState([]);
     const [RRwebSentData, setRRwebSentData] = useState();
 
-    if (localStorage.getItem("token") === null) {
-        var token = null
-    } else {
-        var token = localStorage.getItem("token")
-    }
     const postReqRRweb = async () => {
         await fetch(import.meta.env.VITE_API_URL+"/rrweb", {
             method: 'POST',
@@ -18,7 +13,6 @@ function RRWebRecorder(props) {
             },
             body: JSON.stringify({
                 data: RRwebSentData,
-                token: token,
                 fingerprint:props.fingerprint,
                 ipaddress:props.ip
             })
@@ -31,10 +25,8 @@ function RRWebRecorder(props) {
             return response.json(); // Parse the response as JSON
         })
             .then((data) => {
-                localStorage.setItem("token", data.token)
                 setRRWebDataArray([])
                 setRRwebSentData([])
-
             })
             .catch((error) => {
                 console.error('Error fetching token:', error);
