@@ -7,4 +7,7 @@ export default defineConfig({
   define: {
     'process.env': process.env
   },
+  server: {
+    port: parseInt(process.env.PORT) || 3000, // Default to 3000 if PORT is not defined
+  },
 })
