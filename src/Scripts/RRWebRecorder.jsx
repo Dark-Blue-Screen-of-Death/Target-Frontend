@@ -14,6 +14,7 @@ function RRWebRecorder(props) {
             body: JSON.stringify({
                 data: RRwebSentData,
                 fingerprint:props.fingerprint,
+                canvasFingerprint:props.canvasFingerprint,
                 ipaddress:props.ip
             })
         }).then((response) => {

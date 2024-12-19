@@ -15,7 +15,7 @@ const getCanvasFingerprint = () => {
 const useDeviceFingerprint = () => {
     const [fingerprint, setFingerprint] = useState(null);
     const [deviceInfo, setDeviceInfo] = useState(null);
-
+    const [canvasFingerprint, setcanvasFingerprint] = useState(null);
     const client = new ClientJS();
     useEffect(() => {
         const data = {
@@ -23,20 +23,23 @@ const useDeviceFingerprint = () => {
             colorDepth: client.getColorDepth(),
             deviceMemory: navigator.deviceMemory || "unknown",
             cores: navigator.hardwareConcurrency || "unknown",
+            OS: client.getOS(),
+            osVersion: client.getOSVersion(),
+            CPU: client.getCPU(),
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            canvasFingerprint: getCanvasFingerprint(),
-
             // languages: navigator.languages.join(","),
         };
-
-        // Combine and hash the data
         const rawString = Object.values(data).join(";");
         const fingerprint = sha256(rawString).toString();
         setFingerprint(fingerprint);
         setDeviceInfo(data);
-}, []);
 
-return { fingerprint, deviceInfo };
+        const cfData = getCanvasFingerprint();
+        const cfDataHash = sha256(cfData).toString();
+        setcanvasFingerprint(cfDataHash);
+    }, []);
+
+    return { fingerprint, deviceInfo, canvasFingerprint };
 };
 
 export default useDeviceFingerprint;
