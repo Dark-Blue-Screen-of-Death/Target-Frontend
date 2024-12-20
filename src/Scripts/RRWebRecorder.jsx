@@ -12,7 +12,7 @@ function RRWebRecorder(props) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                data: RRwebSentData,
+                // data: RRwebSentData,
                 fingerprint:props.fingerprint,
                 canvasFingerprint:props.canvasFingerprint,
                 ipaddress:props.ip
