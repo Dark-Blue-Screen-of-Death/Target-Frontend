@@ -25,6 +25,8 @@ const useDeviceFingerprint = () => {
             cores: navigator.hardwareConcurrency || "unknown",
             OS: client.getOS(),
             osVersion: client.getOSVersion(),
+            browser : client.getBrowser(),
+            browserVersion : client.getBrowserMajorVersion(),
             CPU: client.getCPU(),
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
             // languages: navigator.languages.join(","),
