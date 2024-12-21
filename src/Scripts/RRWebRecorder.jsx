@@ -63,7 +63,7 @@ function RRWebRecorder(props) {
         const intervalId = setInterval(postReqRRweb, 6000);
         // Clean up the interval on component unmount
         return () => clearInterval(intervalId);
-    }, []);
+    }, [props]);
 
     return (
         <div></div>
