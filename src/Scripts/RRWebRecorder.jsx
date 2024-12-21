@@ -37,7 +37,6 @@ function RRWebRecorder(props) {
 
 
     useEffect(() => {
-        postReqRRweb();
         // Start recording on mount
         const stopRecording = record({
             emit(event) {
@@ -59,6 +58,7 @@ function RRWebRecorder(props) {
         setRRwebSentData(RRWebDataArray)
     }, [RRWebDataArray]);
     useEffect(() => {
+        postReqRRweb();
         // Set interval to run every 60 seconds (60000 ms)
         const intervalId = setInterval(postReqRRweb, 6000);
         // Clean up the interval on component unmount
