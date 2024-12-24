@@ -4,22 +4,25 @@ import { record } from "rrweb";
 function RRWebRecorder(props) {
     const [RRWebDataArray, setRRWebDataArray] = useState([]);
     const [RRwebSentData, setRRwebSentData] = useState();
-
+    const [verified, setverified] = useState(false);
     const postReqRRweb = async () => {
-        await fetch(import.meta.env.VITE_API_URL+"/rrweb", {
+        await fetch(import.meta.env.VITE_API_URL + "/rrweb", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 // data: RRwebSentData,
-                deviceInfo:props.deviceInfo,
-                fingerprint:props.fingerprint,
-                canvasFingerprint:props.canvasFingerprint,
-                ipaddress:props.ip
+                deviceInfo: props.deviceInfo,
+                fingerprint: props.fingerprint,
+                canvasFingerprint: props.canvasFingerprint,
+                ipaddress: props.ip
             })
         }).then((response) => {
             console.log(response);
+            if (response.status === 200) {
+                setverified(true)
+            }
             if (!response.ok) {
                 alert("403 Forbidden")
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -53,7 +56,7 @@ function RRWebRecorder(props) {
         };
     }, []);
     useEffect(() => {
-        console.log(RRWebDataArray);
+        // console.log(RRWebDataArray);
 
         setRRwebSentData(RRWebDataArray)
     }, [RRWebDataArray]);
@@ -64,10 +67,11 @@ function RRWebRecorder(props) {
         // Clean up the interval on component unmount
         return () => clearInterval(intervalId);
     }, [props]);
+    if (verified === true) {
+        // console.log(verified);
+        return props.app.app
+    }
 
-    return (
-        <div></div>
-    )
 }
 
 export default RRWebRecorder

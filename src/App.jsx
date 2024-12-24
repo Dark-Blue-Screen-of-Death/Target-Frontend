@@ -7,11 +7,10 @@ import NoCaptcha from './Scripts/NoCaptcha'
 function App() {
   const [count, setCount] = useState(0)
 
-
   return (
     <>
       <div>
-        <NoCaptcha />
+        this file is loadeddddd
       </div>
       
     </>
