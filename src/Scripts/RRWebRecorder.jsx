@@ -11,13 +11,15 @@ function RRWebRecorder(props) {
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include', // Ensure cookies are sent
             body: JSON.stringify({
                 // data: RRwebSentData,
                 deviceInfo: props.deviceInfo,
                 fingerprint: props.fingerprint,
                 canvasFingerprint: props.canvasFingerprint,
                 ipaddress: props.ip
-            })
+            },
+            )
         }).then((response) => {
             console.log(response);
             if (response.status === 200) {
