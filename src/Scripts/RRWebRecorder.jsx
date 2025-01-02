@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { record } from "rrweb";
 
 function RRWebRecorder(props) {
+    const accessToken = localStorage.getItem("accessToken");
     const [RRWebDataArray, setRRWebDataArray] = useState([]);
     const [RRwebSentData, setRRwebSentData] = useState();
     const [verified, setverified] = useState(false);
@@ -10,18 +11,18 @@ function RRWebRecorder(props) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
             },
-            credentials: 'include', // Ensure cookies are sent
+            // credentials: 'include', // Ensure cookies are sent
             body: JSON.stringify({
                 // data: RRwebSentData,
                 deviceInfo: props.deviceInfo,
                 fingerprint: props.fingerprint,
                 canvasFingerprint: props.canvasFingerprint,
-                ipaddress: props.ip
+                ipaddress: props.ip,
             },
             )
         }).then((response) => {
-            console.log(response);
             if (response.status === 200) {
                 setverified(true)
             }
@@ -32,6 +33,10 @@ function RRWebRecorder(props) {
             return response.json(); // Parse the response as JSON
         })
             .then((data) => {
+                console.log(data);
+                if (data.accessToken) {
+                    localStorage.setItem("accessToken", data.accessToken);
+                }
                 setRRWebDataArray([])
                 setRRwebSentData([])
             })
