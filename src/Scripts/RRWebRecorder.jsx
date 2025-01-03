@@ -27,7 +27,7 @@ function RRWebRecorder(props) {
                 setverified(true)
             }
             if (!response.ok) {
-                alert("403 Forbidden")
+                // alert("403 Forbidden")
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             return response.json(); // Parse the response as JSON
